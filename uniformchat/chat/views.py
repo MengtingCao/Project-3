@@ -65,4 +65,3 @@ def send(request):
     g.sendMessageG(text, groupid,accesstoken)
 
     return None
-   
