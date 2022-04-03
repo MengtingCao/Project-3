@@ -9,6 +9,5 @@ urlpatterns = [
     path('update/', views.update, name= 'update'),
     path('messages/', views.messages, name="messages"),
     path('gmlogin/', views.groupMe_login, name='GroupMe_Login'),
-    path('gmlogin/redirect/', views.groupMe_login_redirect, name='GroupMe_Login_Redirect'),
 
 ]

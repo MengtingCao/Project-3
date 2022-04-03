@@ -11,7 +11,7 @@ accesstoken = views.accesstoken
 chats = json.loads(g.listChats(accesstoken))
 for chat in chats['response']:
     print("--------------------------------")
-    print(chat['name'], "  //---ID: ",chat['group_id'])
+    print(chat['name'], "  //---ID: ",chat['id'])
     print(datetime.fromtimestamp(chat['messages']['last_message_created_at']))
 
 groupid = input("Input Group ID: ")

@@ -7,9 +7,8 @@ from urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 class groupmeapi:
-    global baseurl, gbaseurl
-    baseurl = 'https://api.groupme.com/v3'
-    gbaseurl = 'https://api.groupme.com/v3/groups/'
+    global gbaseurl
+    gbaseurl = 'https://api.groupme.com/v3/groups'
 
     def randomString(self, stringLength):
         letters = string.ascii_lowercase + "1234567890"
@@ -17,6 +16,14 @@ class groupmeapi:
 
     #api to get chat data
     def listChats(self,token):
+        params = (
+            ('per_page', 100),
+        )
+        response = requests.get(gbaseurl + '?token=' + str(token), params=params, verify=False)
+
+        return response.content
+    
+    def listGroups(self,token):
         params = (
             ('per_page', 100),
         )
@@ -46,7 +53,7 @@ class groupmeapi:
 
     def getLastMessageG(self, group, token):
         params = (
-            ('limit', 1),
+            ('limit', 100),
         )
         response = requests.get(gbaseurl+str(group)+'/messages?token=' + str(token), params=params, verify=False)
 

@@ -7,36 +7,34 @@ import json, requests
 g = grme()
 
 #GLOBAL USER VAR
-groupid = 1
+groupid = 0
 redirectURL = "https://oauth.groupme.com/oauth/authorize?client_id=HJomQxYT0hNMcBmzCzMyFHjKby4jxjo3Fgl5ptINs4BgOqqo"
 
 
 def messages(request):
-    print(accesstoken)
-    convos = json.loads(g.listChats(accesstoken))
-    data = {}
+    global accesstoken
+    accesstoken = request.GET.get('access_token')
+    listOfChats = g.listChats(accesstoken)
+    convos = json.loads(listOfChats)['response']
     conversations = []
 
-    for chat in convos['response']:
-        lastmsg = json.loads(g.getLastMessageG(convos['group_id'] , accesstoken))['response']
-        data['name'] = convos['name']
+    for chat in convos:
+        data = {}
+        data['name'] = chat['name']
         data['platform'] = 'GroupMe'
-        data['snippet'] = lastmsg['text']
-        data['time'] = datetime.fromtimestamp(lastmsg['messages']['last_message_created_at'])
+        data['snippet'] = chat['messages']['preview']['text']
+        data['time'] = datetime.fromtimestamp(chat['messages']['last_message_created_at'])
+        print(data)
+        conversations.append(data)
     
     context = {
         'title': 'Messages',
-        'conversations': sorted(conversations, key = lambda i: (i['date'], i['user']))
+        'conversations': reversed(sorted(conversations, key = lambda i: (i['time'], i['name'])))
     }
     return render(request, 'messages.html', context)
 
 def groupMe_login(request: HttpRequest):
     return redirect(redirectURL)
-
-def groupMe_login_redirect(request:  HttpRequest):
-    global accesstoken
-    accesstoken = request.GET.get('access_token')
-    return render(request, 'redirect.html')
 
 def index(request):
     gc = json.loads(g.getGroupName(groupid , accesstoken))['response']
