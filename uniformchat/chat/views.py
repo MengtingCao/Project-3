@@ -7,7 +7,6 @@ import json, requests
 g = grme()
 
 #GLOBAL USER VAR
-groupid = 0
 redirectURL = "https://oauth.groupme.com/oauth/authorize?client_id=HJomQxYT0hNMcBmzCzMyFHjKby4jxjo3Fgl5ptINs4BgOqqo"
 
 
@@ -76,5 +75,14 @@ def send(request):
     text = request.POST['text']
 
     g.sendMessageG(text, groupid,accesstoken)
+
+    return None
+
+
+#update gm id
+def updategmID(request):
+
+    global groupid
+    groupid = request.POST['text']
 
     return None

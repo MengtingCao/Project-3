@@ -39,7 +39,7 @@ class groupmeapi:
         }
         data = '{"message":{"source_guid":"'+self.randomString(25)+'","attachments":[],"text":"'+message+'"}}'
 
-        response = requests.post(gbaseurl+str(group)+'/messages', headers=headers, data=data, verify=False)
+        response = requests.post(gbaseurl+'/'+str(group)+'/messages', headers=headers, data=data, verify=False)
 
         return response.content
     
@@ -47,7 +47,7 @@ class groupmeapi:
         params = (
             ('limit', 100),
         )
-        response = requests.get(gbaseurl+str(group)+'/messages?token=' + str(token), params=params, verify=False)
+        response = requests.get(gbaseurl+'/'+str(group)+'/messages?token=' + str(token), params=params, verify=False)
 
         return(response.content)
 
@@ -55,11 +55,11 @@ class groupmeapi:
         params = (
             ('limit', 100),
         )
-        response = requests.get(gbaseurl+str(group)+'/messages?token=' + str(token), params=params, verify=False)
+        response = requests.get(gbaseurl+'/'+str(group)+'/messages?token=' + str(token), params=params, verify=False)
 
         return(response.content)
 
     def getGroupName(self, group, token):
-        response = requests.get(gbaseurl+str(group)+'?token=' + str(token), verify=False)
+        response = requests.get(gbaseurl+'/'+str(group)+'?token=' + str(token), verify=False)
 
         return(response.content)
