@@ -8,7 +8,7 @@ g = grme()
 
 #GLOBAL USER VAR
 redirectURL = "https://oauth.groupme.com/oauth/authorize?client_id=HJomQxYT0hNMcBmzCzMyFHjKby4jxjo3Fgl5ptINs4BgOqqo"
-groupid = 1
+groupid = 86230464
 
 
 def messages(request):
@@ -35,25 +35,21 @@ def messages(request):
             data['usedate'] = dateTime[0].strftime("%d/%m/%Y")
         conversations.append(data)
     
-    if (groupid != 1):
-        gc = json.loads(g.getGroupName(groupid , accesstoken))['response']
-        msgs = json.loads(g.getMessagesG(groupid , accesstoken))['response']
 
-        for msg in msgs['messages']:
-            msg['created_at'] = datetime.fromtimestamp(msg['created_at'])
+    gc = json.loads(g.getGroupName(groupid , accesstoken))['response']
 
-        context = {
-            'title': 'Messages',
-            'msgs':msgs['messages'],
-            'gc':gc,
-            'conversations': reversed(sorted(conversations, key = lambda i: (i['datetime'], i['name'])))
-        }
-    else:
-        context = {
-            'title': 'Messages',
+    msgs = json.loads(g.getMessagesG(groupid , accesstoken))['response']
 
-            'conversations': reversed(sorted(conversations, key = lambda i: (i['datetime'], i['name'])))
-        }
+    for msg in msgs['messages']:
+        msg['created_at'] = datetime.fromtimestamp(msg['created_at'])
+
+    context = {
+        'title': 'Messages',
+        'conversations': reversed(sorted(conversations, key = lambda i: (i['time'], i['name']))),
+        'msgs':msgs['messages'],
+        'gc':gc,
+        'conversations': reversed(sorted(conversations, key = lambda i: (i['datetime'], i['name'])))
+    }
 
     return render(request, 'messages.html', context)
 
