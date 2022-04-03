@@ -6,6 +6,7 @@ urlpatterns = [
     path('send/', views.send),
     path('update/', views.update, name= 'update'),
     path('messages/', views.messages, name="messages"),
+    path('messages/updateM/', views.updateM, name="updateM"),
     path('gmlogin/', views.groupMe_login, name='GroupMe_Login'),
 
 ]

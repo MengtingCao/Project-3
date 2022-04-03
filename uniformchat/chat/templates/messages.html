@@ -2,10 +2,27 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <script>
+        const updateChat = () => {               //GET MESSAGE FUNCTION TO UDATE MESSAGES
+            fetch("updateM")
+                .then((response) => response.json())
+                .then((convos) => {
+                    let messagesHtml = "";
+                    for (var conversation of convos.response) {
+                        messagesHtml += `<button> <h3 style="text-align:left;color:white"> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3> <h4 style="text-align:left">${ conversation.platform }</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                    }
+
+                    let msgGroup = document.getElementById("msgGroup");
+                    msgGroup.innerHTML = messagesHtml;
+                })
+                .catch((err) => console.log(err));
+        }
+        setInterval(updateChat, 500);        
+    </script>
     <section class="header">
         <nav id="mynavbar" class="navbar">
             <a id="navname"> <b>UniformChat</b> </a>
-            <a href="../" id="chat">Chat</a>
+            <a href="../chat" id="chat">Chat</a>
             <a href="" id="messages">Messages</a>
             <a href="../gmlogin" id="gmlogin">GroupMe Login</a>
         </nav>
@@ -16,18 +33,20 @@
             <button class="settings">Settings</button>
         </div>
         <div class="btn-group">
-            {% for conversation in conversations %}
-            <button>
-                <h3 style="text-align:left;color:white">
-                    {{ conversation.name }}
-                    <span style="float:right">
-                        {{ conversation.time }}
-                    </span>
-                </h3>
-                <h4 style="text-align:left">{{ conversation.platform }}</h4>
-                <p style="text-align:left"> {{ conversation.snippet }} </p>
-            </button>
-            {% endfor %}
+            <div id = "msgGroup">
+                {% for conversation in conversations %}
+                <button>
+                    <h3 style="text-align:left;color:white">
+                        {{ conversation.name }}
+                        <span style="float:right">
+                            {{ conversation.time }}
+                        </span>
+                    </h3>
+                    <h4 style="text-align:left">{{ conversation.platform }}</h4>
+                    <p style="text-align:left"> {{ conversation.snippet }} </p>
+                </button>
+                {% endfor %}
+            </div>
         </div>
     </container>
 {% endblock %}

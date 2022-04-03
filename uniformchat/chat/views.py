@@ -33,6 +33,19 @@ def messages(request):
     }
     return render(request, 'messages.html', context)
 
+def updateM(request):
+    listOfChats = g.listChats(accesstoken)
+    convos = json.loads(listOfChats)
+
+    for chat in convos['response']:
+        chat['platform'] = 'GroupMe'
+        chat['snippet'] = chat['messages']['preview']['text']
+        time = datetime.fromtimestamp(chat['messages']['last_message_created_at'])
+        chat['time'] = time.strftime("%b %d, %Y | %I:%M %P")
+        
+    return JsonResponse(convos)
+
+
 def groupMe_login(request: HttpRequest):
     return redirect(redirectURL)
 
