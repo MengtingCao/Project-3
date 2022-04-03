@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from .GroupMeAPI import groupmeapi as grme
-from datetime import datetime
+from datetime import datetime, date, time
 import json, requests
 
 g = grme()
@@ -21,14 +21,22 @@ def messages(request):
         data = {}
         data['name'] = chat['name']
         data['platform'] = 'GroupMe'
-        data['snippet'] = chat['messages']['preview']['text']
-        data['time'] = datetime.fromtimestamp(chat['messages']['last_message_created_at'])
-        print(data)
+        snippet = chat['messages']['preview']['text']
+        if(len(snippet) > 50):
+            snippet = snippet[:50] + "..."
+        data['snippet'] = snippet
+        data['date'] = date.fromtimestamp(chat['messages']['last_message_created_at']),
+        data['datetime'] = datetime.fromtimestamp(chat['messages']['last_message_created_at']),
+        dateTime = data['datetime']
+        if(data['date'][0] == date.today()):
+            data['usedate'] = dateTime[0].strftime('%I:%M %p')
+        else:
+            data['usedate'] = dateTime[0].strftime("%d/%m/%Y")
         conversations.append(data)
     
     context = {
         'title': 'Messages',
-        'conversations': reversed(sorted(conversations, key = lambda i: (i['time'], i['name'])))
+        'conversations': reversed(sorted(conversations, key = lambda i: (i['datetime'], i['name'])))
     }
     return render(request, 'messages.html', context)
 
