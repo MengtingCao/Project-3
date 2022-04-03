@@ -100,8 +100,6 @@ html, body {
     /* Set a width if needed */
     display: block;
     /* Make the buttons appear below each other */
-    line-height: 0.5;
-    height: auto;
 }
 
 .btn-group button:not(:last-child) {
