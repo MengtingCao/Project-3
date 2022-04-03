@@ -8,6 +8,7 @@ g = grme()
 
 #GLOBAL USER VAR
 redirectURL = "https://oauth.groupme.com/oauth/authorize?client_id=HJomQxYT0hNMcBmzCzMyFHjKby4jxjo3Fgl5ptINs4BgOqqo"
+groupid = 86230464
 
 
 def messages(request):
@@ -26,10 +27,21 @@ def messages(request):
         print(data)
         conversations.append(data)
     
+
+    gc = json.loads(g.getGroupName(groupid , accesstoken))['response']
+
+    msgs = json.loads(g.getMessagesG(groupid , accesstoken))['response']
+
+    for msg in msgs['messages']:
+        msg['created_at'] = datetime.fromtimestamp(msg['created_at'])
+
     context = {
         'title': 'Messages',
-        'conversations': reversed(sorted(conversations, key = lambda i: (i['time'], i['name'])))
+        'conversations': reversed(sorted(conversations, key = lambda i: (i['time'], i['name']))),
+        'msgs':msgs['messages'],
+        'gc':gc
     }
+
     return render(request, 'messages.html', context)
 
 def updateM(request):
@@ -63,9 +75,10 @@ def update(request):
     gc = json.loads(g.getGroupName(groupid , accesstoken))['response']
 
     msgs = json.loads(g.getMessagesG(groupid , accesstoken))['response']
-
+    msgs['name']= gc['name']
     for msg in msgs['messages']:
-       msg['created_at'] = datetime.fromtimestamp(msg['created_at'])
+        time = datetime.fromtimestamp(msg['created_at'])
+        msg['created_at'] = time.strftime("%b %d, %Y | %I:%M %P")
 
     return JsonResponse(msgs)
 
