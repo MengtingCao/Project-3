@@ -8,5 +8,8 @@ def index(request):
     #return HttpResponse("Hello, world. You're at the polls index.")
     return render(request, 'index.html')
 
+def chat(request):
+    return render(request, 'chat.html')
+
 #def homepage(request):
  #   return HttpResponse("HHome")

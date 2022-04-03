@@ -2,11 +2,11 @@ import os
 from GroupMeAPI import groupmeapi as grme
 from datetime import datetime
 import json
+from . import views
 
 g = grme()
 
-print("https://oauth.groupme.com/oauth/authorize?client_id=9CGnISIh98iHAwy8hyTeOnAjLmeLZ32BVV5ovf6LG5nM3JPB")
-accesstoken = input("Input Access Token: ")
+accesstoken = views.accesstoken
 
 chats = json.loads(g.listChats(accesstoken))
 for chat in chats['response']:
