@@ -5,11 +5,8 @@ import json
 
 d = dapi()
 
-access_token = 'MTMxMjU2NzE4Mzc3MDkxMDcy.YMJoqw.bCrcoGt3rSGy84-IVgJE3TG14d8'
-channel_id = '767886713586319423'
-
-#access_token = input("Input your access token")
-#channel_id = input("Input Channel ID")
+access_token = input("Input your access token")
+channel_id = input("Input Channel ID")
 
 def get_name():
     channels = json.loads(d.get_channel(channel_id, access_token))
