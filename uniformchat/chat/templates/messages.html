@@ -1,0 +1,146 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        const updateChat = () => {               //GET MESSAGE FUNCTION TO UDATE MESSAGES
+            fetch("updateM")
+                .then((response) => response.json())
+                .then((convos) => {
+                    let messagesHtml = "";
+                    for (var conversation of convos.response) {
+                        messagesHtml += `<button onclick="setgmID(\''+${ conversation.group_id }+'\')"> <h3 style="text-align:left;color:white"> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3> <h4 style="text-align:left">${ conversation.platform }</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                    }
+
+                    let msgGroup = document.getElementById("msgGroup");
+                    msgGroup.innerHTML = messagesHtml;
+                })
+                .catch((err) => console.log(err));
+        }
+        setInterval(updateChat, 500);  
+        
+        function setgmID(id){
+
+            $.ajax({
+                type: "POST",
+                url: "{{ 'updategmID/' }}",
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: id },  
+            });
+        }
+
+    </script>
+    <section class="header">
+        <nav id="mynavbar" class="navbar">
+            <a id="navname"> <b>UniformChat</b> </a>
+            <a href="../" id="chat">Chat</a>
+            <a href="" id="messages">Messages</a>
+            <a href="../gmlogin" id="gmlogin">GroupMe Login</a>
+        </nav>
+    </section>
+
+    <div class = "format">
+        <container class="convcont">
+            <div class="toolbox">
+                <button class="newconvo">+</button>
+                <button class="settings">Settings</button>
+            </div>
+            <div class="btn-group">
+                <div id = "msgGroup">
+                    {% for conversation in conversations %}
+                    <button id="cbutton" onclick="gotoChat();">
+                        <h3 style="text-align:left;color:white">
+
+                            {{ conversation.name }}
+                            <span style="float:right">
+                                {{ conversation.time }}
+                            </span>
+                        </h3>
+                        <h4 style="text-align:left">{{ conversation.platform }}</h4>
+                        <p style="text-align:left"> {{ conversation.snippet }} </p>
+                    </button>
+                    {% endfor %}
+                </div>
+            </div>
+        </container>
+
+        <script>
+            const getMessages = ()=>{               //GET MESSAGE FUNCTION TO UDATE MESSAGES
+                fetch("update") 
+                .then((response) => response.json())
+                .then((msgs) => {
+                    let messagesHtml = "";
+                    for (var msg of msgs.messages) {
+                        messagesHtml += `<div class = "message"> <div class = "n-msg"> <h3> ${msg.name} </h3> <p> ${msg.created_at} </p> </div> <h2> ${msg.text} </h2> </div>`
+                    }
+    
+                    let messages = document.getElementById("chat_messages");
+                    messages.innerHTML = messagesHtml;
+                    let gcName = document.getElementById("gcName");
+                    gcName.innerHTML = msgs.name;
+                })
+                .catch((err) => console.log(err));
+            }
+            setInterval(getMessages, 200);          //EVERY .1 second
+            
+            function onTestChange() {
+                var key = window.event.keyCode;         //if user presses enter
+    
+                if (key === 13) {
+                    document.getElementById('button').click();
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            function analyzeText(){                     //gets message from text box and sends 
+                var text = document.getElementById('message-to-send').value;    
+    
+                $.ajax({
+                    type: "POST",
+                    url: "{{ 'send/' }}",
+                    data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: text },  
+                    success: function callback(response){
+                               alert(response);
+                            }
+                });
+                document.getElementById('message-to-send').value = "";
+            }
+            $(document).ready(function(){
+                if (window.location.hash == "") {
+                $('html, body').animate({
+                    scrollTop: $("#send").offset().top
+                }, 300);
+                }
+            });
+        </script>
+
+        <container class="chat">
+            <h1 id = "gcName" style="text-align: center;">
+                {{gc.name}}
+            </h1>
+            <div id = "send">
+                <input id="message-to-send" onkeypress="onTestChange();"></input>
+                <input type="submit" id="button" value="send" onclick="analyzeText();">
+            </div>
+            <div id = "chat_messages">
+                {%for msg in msgs%}
+                <div class = "message">
+                    <div class = "n-msg">
+                        <h3>
+                            {{msg.name}}
+                        </h3>
+                        <p>
+                            {{msg.created_at}}
+                        </p>
+                    </div>
+                    <h2>
+                        {{msg.text}}
+                    </h2>
+                </div>
+                {%endfor%}
+            </div>
+        </container>
+    </div>
+{% endblock %}

@@ -1,0 +1,193 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden
+}
+
+.format{
+    display: flex;
+    height: 95%;
+}
+
+
+
+.convcont {
+    background-color: #000000;
+    width: 30%;
+    display: block;
+    overflow: auto;
+}
+.chat {
+    background-color: #1dbcf6;
+    width: 70%;
+    display: block;
+    overflow: auto;
+}
+#gcName {
+    color: aliceblue;
+    font-family: monospace;
+}
+
+
+.toolbox {
+    background-color: #000000;
+    color: grey;
+    cursor: pointer;
+    width: 100%;
+    height: 30px;
+    display: block;
+    line-height: 0.5;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.newconvo {
+    background-color: #000000;
+    color: grey;
+    padding: 1px 20px;
+    cursor: pointer;
+    width: auto;
+    height: 100%;
+    display: block;
+    line-height: 0.5;
+    float: right;
+}
+
+.settings {
+    background-color: #000000;
+    color: grey;
+    padding: 1px 20px;
+    cursor: pointer;
+    width: auto;
+    display: block;
+    line-height: 0.5;
+    float: left;
+    height: 100%;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #44006b;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    background: white;
+    color: black;
+}
+
+.btn-group button {
+    background-color: #000000;
+    /* Black background */
+    border: 1px solid rgb(100, 100, 100);
+    /* Grey border */
+    color: grey;
+    /* White text */
+    padding: 1px 20px;
+    /* Some padding */
+    cursor: pointer;
+    /* Pointer/hand icon */
+    width: 100%;
+    /* Set a width if needed */
+    display: block;
+    /* Make the buttons appear below each other */
+}
+
+.btn-group button:not(:last-child) {
+    border-bottom: none;
+    /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: rgb(100, 100, 100);
+}
+
+.message {
+    background-color: #ffffff94;
+    font-family: monospace;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.n-msg{
+    display:flex;
+    justify-content: space-between;
+}
+
+.n-msg h3 {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    color: rgba(0, 0, 0, 0.507);
+}
+
+.message h2 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.message p {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    color: rgba(0, 0, 0, 0.507);
+}
+
+#chat_messages {
+    margin-left: auto;
+    margin-right: auto;
+    height: 85%;
+    transition: 0.3s;
+}
+
+#message-to-send {
+    font-size: 20px;
+    padding: 8px;
+    font-family: monospace;
+    height: 45px;
+    width: 100%;
+    overflow: auto;
+    outline-width: 1px;
+    outline-color: rgba(240, 248, 255, 0.678);
+    background-color: #fdfeffa6;
+
+    resize: none;
+}
+
+#send {
+    display: flex;
+}
+
+#button {
+    width: 10%;
+    background-color: #fdfeffa6;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f100;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.349);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(87, 118, 255, 0.596);
+}
