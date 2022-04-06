@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, JsonResponse, HttpResponseRedirect
 from .GroupMeAPI import groupmeapi as grme
 from datetime import datetime, date, time
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 import json, requests
 
 g = grme()
@@ -149,3 +150,10 @@ def updategmID(request):
     groupid = request.POST['text']
 
     return None
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm()
+    else:
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html', {'form':form})
