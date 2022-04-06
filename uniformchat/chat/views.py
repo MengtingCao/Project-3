@@ -120,7 +120,7 @@ def groupMe_auth(request: HttpRequest):
     text_file.close()
 
     groupme_db = "INSERT INTO groupme (groupme_user, groupme_autho) VALUES ( %s, %s, %s, %s, %s)"
-    groupme_dbvalue = ('test','test','0','request.GET.get('access_token')','0')
+    groupme_dbvalue = ('test','test','0','' + request.GET.get('access_token')+'','0')
 
     cur.execute(groupme_db, groupme_dbvalue)
     conn.commit()
