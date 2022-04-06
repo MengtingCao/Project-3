@@ -4,8 +4,23 @@ from .GroupMeAPI import groupmeapi as grme
 from datetime import datetime, date, time
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 import json, requests
+import psycopg2
 
 g = grme()
+
+#database connection
+hostname = 'ec2-54-173-77-184.compute-1.amazonaws.com'
+database = 'd2jg1tt725t1j4'
+username = 'orysgydtilkzew'
+pwd = '3c9add640649eec2525bc7871bcddebf38c054788f25ceee8e10b99d5fb40c62'
+port_id = 5432
+conn = psycopg2.connect(
+    host = hostname,
+    dbname = database,
+    user = username,
+    password = pwd,
+    port = port_id)
+cur = conn.cursor()
 
 #GLOBAL USER VAR
 redirectURL = "https://oauth.groupme.com/oauth/authorize?client_id=iUNSRzS3IDBTAIEy5BSg9in8goZVVXto5i762YjI9dtXSiDb"
@@ -103,6 +118,14 @@ def groupMe_auth(request: HttpRequest):
     text_file = open("chat/keys.txt", "at")
     text_file.write("groupme:" + request.GET.get('access_token') + "\n")
     text_file.close()
+
+    groupme_db = "INSERT INTO groupme (groupme_user, groupme_autho) VALUES ( %s, %s)"
+    groupme_dbvalue = ('test',request.GET.get('access_token'))
+
+    cur.execute(groupme_db, groupme_dbvalue)
+    conn.commit()
+    cur.close()
+    conn.close()
 
     return redirect(redirectBack)
 
