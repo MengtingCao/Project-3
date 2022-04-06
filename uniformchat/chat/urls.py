@@ -13,6 +13,7 @@ urlpatterns = [
     path('messages/updategmID/', views.updategmID, name="updategmID"),
     path('gmlogin/', views.groupMe_login, name='GroupMe_Login'),
     path('groupmeauth/',views.groupMe_auth, name='groupmeauth'),
-    path('login', views.login_view,name="login")
+    path('login', views.login_view,name="login"),
+    path('signup', views.signup_view,name="signup"),
 
 ]

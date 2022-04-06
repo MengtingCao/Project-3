@@ -151,9 +151,20 @@ def updategmID(request):
 
     return None
 
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('http://localhost:8000/chat/login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form':form})
+
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm()
+        form = AuthenticationForm(data=request.POST)
+        return redirect(redirectURL)
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form':form})
