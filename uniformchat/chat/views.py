@@ -119,7 +119,7 @@ def groupMe_auth(request: HttpRequest):
     text_file.write("groupme:" + request.GET.get('access_token') + "\n")
     text_file.close()
 
-    groupme_db = "INSERT INTO groupme (groupme_user, groupme_autho) VALUES ( %s, %s, %s, %s, %s)"
+    groupme_db = "INSERT INTO groupme (username, password, discord_auth, groupme_auth, slack_auth) VALUES ( %s, %s, %s, %s, %s)"
     groupme_dbvalue = ('test','test','0','' + request.GET.get('access_token')+'','0')
 
     cur.execute(groupme_db, groupme_dbvalue)
