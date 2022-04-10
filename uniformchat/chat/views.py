@@ -119,7 +119,8 @@ def groupMe_auth(request: HttpRequest):
     text_file.write("groupme:" + request.GET.get('access_token') + "\n")
     text_file.close()
 
-    groupme_db = "INSERT INTO groupme (username, password, discord_auth, groupme_auth, slack_auth) VALUES ( %s, %s, %s, %s, %s)"
+    #TO DO : update/replace GROUPME TOKEN TO DATABASE THAT MATCHES appusername variable instead of just adding
+    groupme_db = "INSERT INTO users (username, password, discord_auth, groupme_auth, slack_auth) VALUES ( %s, %s, %s, %s, %s)"
     groupme_dbvalue = ('test','test','0','' + request.GET.get('access_token')+'','0')
 
     cur.execute(groupme_db, groupme_dbvalue)
@@ -176,13 +177,20 @@ def updategmID(request):
 
 def signup_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('http://localhost:8000/chat/login')
+        sform = UserCreationForm(request.POST)
+        if sform.is_valid():
+            sform.save()
+            global appusername
+            appusername= sform.cleaned_data.get("username")
+            global apppassword
+            apppassword= sform.cleaned_data.get("password1")
+            print(appusername,":",apppassword)
+            #TO DO : ADD APP USERNAME AND APP PASSWORD TO DATABASE (might not need password in database if django login works on website)
+
+            return redirect('login')
     else:
-        form = UserCreationForm()
-    return render(request, 'registration/signup.html', {'form':form})
+        sform = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form':sform})
 
 def login_view(request):
     if request.method == 'POST':
