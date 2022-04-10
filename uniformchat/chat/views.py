@@ -195,6 +195,9 @@ def signup_view(request):
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
+        global appusername
+        appusername = form.cleaned_data.get('username')
+        print(appusername)
         return redirect(redirectURL)
     else:
         form = AuthenticationForm()
