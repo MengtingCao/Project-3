@@ -1,0 +1,70 @@
+body{
+    overflow: hidden;
+}
+#button {
+    background-color: #5865F2; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#restbutton {
+    background-color: #ff0000; /* Green */
+    margin-bottom: 10px;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.button2 {
+    background-color: #704AE3; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#add {
+    text-align: center;
+    padding: 35px;
+}
+
+#add p {
+    font-size: 14px;
+    padding-top: 10% ;
+}
+
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+}
+
+::-webkit-scrollbar {
+    z-index:1000;
+    width: 5px;
+    background: rgba(0, 0, 0, 0);
+    outline: #704AE3;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f100;
+}
+
+::-webkit-scrollbar-thumb {
+    background:#704AE3;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(87, 118, 255, 0);
+}

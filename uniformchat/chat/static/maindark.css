@@ -1,0 +1,537 @@
+
+
+html, body {
+    margin: 0;
+    height: 100%;
+    background-color: #111111;
+    font-size: 20px;
+    color:white;
+    font-family: monospace;
+}
+
+.format{
+    display: flex;
+    height: 95%;
+}
+
+.convcont {
+    background-color: #111111;
+    width: 30%;
+    display: block;
+    overflow: auto;
+}
+
+
+.toolbox {
+    background-color: #000000;
+    color: grey;
+    cursor: pointer;
+    width: 100%;
+    height: 30px;
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    padding-bottom: 15px;
+}
+
+.newconvo {
+    background-color: #000000;
+    color: #704AE3;
+    padding:10px 10px 30px 10px;
+    cursor: pointer;
+    width: 100%;
+    height: 30px;
+    float: right;
+    font-size: 17px;
+    border: 3px solid #704AE3;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.newconvo:hover {
+    color: white;
+    background-color: rgb(71, 71, 71);
+}
+
+.settings {
+    background-color: #000000;
+    color: #704AE3;
+    padding: 1px 20px;
+    cursor: pointer;
+    width: auto;
+    display: block;
+    line-height: 0.5;
+    float: left;
+    height: 100%;
+}
+
+.menu {
+    display: flex;
+    gap: 1em;
+    font-size: 10px;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #704AE3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.menu a:hover {
+    background: white;
+    color: black;
+}
+
+.headimage {
+    background-image: url(media/landingheader.png);
+    height: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.headtext {
+    background-color: #704ae3a8;
+    color: white;
+    font-weight: bold;
+    border: 3px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 450px;
+    padding: 20px;
+    text-align: center;
+}
+
+.btn-group button {
+    background-color: #111111;
+    /* Black background */
+    border: 1px solid #704AE3;
+    /* Grey border */
+    color: grey;
+    /* White text */
+    padding: 1px 20px;
+    /* Some padding */
+    cursor: pointer;
+    /* Pointer/hand icon */
+    width: 100%;
+    /* Set a width if needed */
+    display: block;
+    /* Make the buttons appear below each other */
+}
+
+.btn-group button:not(:last-child) {
+    border-bottom: none;
+    /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    color: white;
+    background-color: rgb(71, 71, 71);
+}
+.btn-group h3{
+    text-align:left;
+    color:#704AE3;
+}
+
+#h4gm{
+    text-align:left; color:#704AE3;
+}
+
+.btn-group button:hover h3{
+    color: white;
+}
+
+
+.notification{
+    background-color: #000000;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: block;
+    line-height: 0.5;
+    float: right;
+    font-size: 17px;
+    border: 3px solid #ff0000;;
+    font-weight: bold;
+    font-family: monospace;
+}
+.notification h1{
+    color: #ff0000;
+    font-size: 18px;
+}
+.notification p{
+    color: #ffffff;
+    font-size: 10px;
+}
+.chat{
+    width: 70%;
+    display: block;
+    overflow: auto;
+}
+
+.chatnone{
+    display: block;
+    background-color: #111111;
+    overflow: auto;
+}
+
+.chatgm{
+    display: block;
+    background-color: #111111;
+    overflow: auto;
+}
+
+
+.chatdisc {
+    background-color: #111111;
+    display: block;
+    overflow: auto;
+}
+.chatslack{
+    background-color: #111111;
+    display: block;
+    overflow: auto;
+}
+#gcName {
+    color: aliceblue;
+    font-family: monospace;
+}
+
+.message {
+    background-color: #ffffff2d;
+    border-radius: 10px;
+    font-family: monospace;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.349);
+}
+
+.chat-head{
+    flex-wrap: wrap;
+    position: fixed;
+    display:flex;
+    width:70.25%;
+    overflow: auto;
+    padding-right: 5px;
+    background-color: #0000004f;
+    margin-top: 0;
+}
+#chatlogo{
+    margin-top: 5px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+}
+#notif{
+    margin-top: 5px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+}
+.chat-head h1{
+    margin-top: 5px;
+    font-size: 25px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.n-msg{
+    display:flex;
+    justify-content: space-between;
+}
+
+.n-msg h3 {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    color: #704AE3;
+}
+
+.message h2 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.message p {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    color: #704AE3;
+}
+
+#chat_messages {
+    margin-left: auto;
+    margin-right: auto;
+    height: 85%;
+    transition: 0.3s;
+}
+
+#message-to-send {
+    font-size: 20px;
+    padding: 8px;
+    font-family: monospace;
+    height: 45px;
+    width: 100%;
+    overflow: auto;
+    outline-width: 1px;
+    outline-color: rgba(240, 248, 255, 0.678);
+    background-color: #fdfeffa6;
+
+    resize: none;
+}
+
+#send {
+    margin-top: 50px;
+    display: flex;
+}
+
+#button {
+    width: 10%;
+    background-color: #fdfeffa6;
+}
+
+.chat::-webkit-scrollbar {
+    z-index:1000;
+    width: 2px;
+    background: rgba(0, 0, 0, 0);
+}
+
+.chat::-webkit-scrollbar-track {
+    background: #f1f1f100;
+}
+
+.chat::-webkit-scrollbar-thumb {
+    background: #0000004f;
+}
+
+.chat::-webkit-scrollbar-thumb:hover {
+    background: rgba(87, 118, 255, 0);
+}
+
+.convcont::-webkit-scrollbar {
+    z-index:1000;
+    width: 5px;
+    background: rgba(0, 0, 0, 0);
+    outline: #704AE3;
+}
+
+.convcont::-webkit-scrollbar-track {
+    background: #f1f1f100;
+}
+
+.convcont::-webkit-scrollbar-thumb {
+    background:#704AE3;
+}
+
+.convcont::-webkit-scrollbar-thumb:hover {
+    background: rgba(87, 118, 255, 0);
+}
+::-webkit-scrollbar {
+    z-index:1000;
+    width: 5px;
+    background: rgba(0, 0, 0, 0);
+    outline: #704AE3;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f100;
+}
+
+::-webkit-scrollbar-thumb {
+    background:#704AE3;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(87, 118, 255, 0);
+}
+
+
+
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    width: 80%;
+    border-radius: 30px;
+    background-color: black;
+    
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(34, 34, 34, 0.795);
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+    text-align: center;
+    padding: 10px 16px;
+    color: white;
+    border-radius: 20px;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 16px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+    background-color: rgba(34, 34, 34, 0.795);
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+#Magnify a {
+    position: fixed;
+    /* Position relative to the browser window */
+    left: -90px;
+    /* Position outside of the screen */
+    transition: 0.3s;
+    /* Add transition on hover */
+    padding: 15px;
+    width: 70px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+}
+
+#Magnifytheme a {
+    position: fixed;
+    /* Position relative to the browser window */
+    right: -90px;
+    /* Position outside of the screen */
+    transition: 0.3s;
+    /* Add transition on hover */
+    padding: 15px;
+    width: 70px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+}
+#Magnifytheme a:hover {
+    right: 0;
+}
+
+#Magnify a:hover {
+    left: 0;
+}
+
+#incmag {
+    top: 60px;
+    background-color: #222;
+    border-style: solid;
+    border-color:#f2f2f2 #f2f2f2 #f2f2f2 transparent;
+}
+
+#decmag {
+    top: 120px;
+    background-color: #222;
+    border-style: solid;
+    border-color:#f2f2f2 #f2f2f2 #f2f2f2 transparent;
+}
+
+#darkmode {
+    bottom: 180px;
+    background-color: #222;
+    border-style: solid;
+    border-color:#f2f2f2 transparent #f2f2f2 #f2f2f2;
+}
+#lightmode {
+    bottom: 120px;
+    background-color: rgb(36, 36, 36);
+    border-style: solid;
+    border-color:#f2f2f2 transparent #f2f2f2 #f2f2f2;
+}
+#colormode {
+    bottom: 60px;
+    background-color: #222;
+    border-style: solid;
+    border-color:#f2f2f2 transparent #f2f2f2 #f2f2f2;
+}
