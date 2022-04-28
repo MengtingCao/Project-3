@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <section class="header">
+        <nav id="mynavbar" class="navbar">
+        <div class = logo>
+            <b><a id="navname"><b>UniformChat</b> </a>
+        </div>
+            <div class="menu">
+                <a href="../" id="messages">Messages</a>
+                <a href="../../gmlogin" id="gmlogin">GroupMe Login</a>
+                <a href="../../disclogin" id="discordlogin">Discord Login</a>
+                <a href="../../slacklogin" id="slacklogin">Slack Login</a>
+            </div>
+        </nav>
+    </section>
+    <head>
+        <title>Add Discord</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="{% static 'adddisc.css' %}" media="screen">
+    </head>
+    <script>
+        function analyzesChannel(){                     //gets message from text box and sends 
+            var gcname = document.getElementById('newchatname').value; 
+
+            $.ajax({
+                type: "POST",
+                url: "{{ 'slackadd/' }}",
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', gcname: gcname}
+            });
+            window.location.href="http://localhost:8000/messages/"
+        }
+        function deleteChannel(){                     //gets message from text box and sends 
+            $.ajax({
+                type: "POST",
+                url: "{{ 'slackdelete/' }}",
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+            window.location.href="http://localhost:8000/messages/"
+        }
+    </script>
+    <img id = "logo" src="{% static 'media/slack.png' %}" style = "padding-top: 40px;padding-bottom: 40px;">
+    <div id = "add">
+        <label for="newchatname">Channel Name:</label>
+        <input type="text" id="newchatname" name="newchatname"><br><br>
+        <input id = "button" type="button" onclick="analyzesChannel();" value="Add Channel"></input>
+        <h1> </h1>
+        <p>Don't know how to get channel id?</p>
+        <a class = "button2" href="http://localhost:8000/tutorials/" value="click here">Click Here!</a>
+        <h1> </h1>
+        <p> </p>
+        <input id = "restbutton" type="button" onclick="deleteChannel();" value="RESET CHANNELS"></input>
+    </div>
+
+{% endblock %} 

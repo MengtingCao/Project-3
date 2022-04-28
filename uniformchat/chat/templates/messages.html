@@ -1,0 +1,330 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<title id = "title">UniformChat | Messages</title>
+    <style>
+        html,body {overflow: hidden}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        function darkTheme() {
+          localStorage.setItem('style', "{% static 'maindark.css' %}");
+          document.getElementById('pagestyle').setAttribute('href',"{% static 'maindark.css' %}");
+        }
+
+        function lightTheme() {
+          localStorage.setItem('style', "light");
+          document.getElementById('pagestyle').setAttribute('href',"{% static 'mainlight.css' %}");
+        }
+        function colorTheme() {
+          localStorage.setItem('style', "color");
+          document.getElementById('pagestyle').setAttribute('href',"{% static 'main.css' %}");
+        }
+       
+    </script>
+    <script>
+
+        window.onload = function() {
+            loadChat();
+        };
+        const loadChat = () => {               //GET MESSAGE FUNCTION TO UDATE (FOR LOADING ONLY, reads from database so it can be fast)
+            fetch("updateMload")
+                .then((response) => response.json())
+                .then((allmessages) => {
+                    if (allmessages.response === 'none'){
+
+                    }else{
+                        let messagesHtml = "";
+                        for (var conversation of allmessages.response) {
+                            if (conversation.read === 'false'){
+                                if (conversation.platform == 'GroupMe'){
+                                    messagesHtml += `<button onclick="setID(\''+${conversation.group_id} + '\')"> <h3> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3><h4 style = "text-align:left; color:#1dbcf6;"> ⬤ ${ conversation.platform}</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                                }else if (conversation.platform == 'Discord'){
+                                    messagesHtml += `<button onclick="setID(\''+${conversation.group_id} + '\')"> <h3> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3><h4 style = "text-align:left; color:#5865F2;"> ⬤ ${ conversation.platform}</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                                }else{
+                                    messagesHtml += `<button onclick="setID(\''+${conversation.group_id} + '\')"> <h3> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3><h4 style = "text-align:left; color:#ECB22E;"> ⬤ ${ conversation.platform}</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                                }
+                            }else{
+                                messagesHtml += `<button onclick="setID(\''+${conversation.group_id} + '\')"> <h3> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3> <h4 style="text-align:left">${ conversation.platform}</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                            }
+                        }
+
+                        let msgGroup = document.getElementById("msgGroup");
+                        msgGroup.innerHTML = messagesHtml;
+
+                        if (allmessages.newm === '0'){
+                            let unreads = document.getElementById("unreads");
+                            unreads.innerHTML = "";
+                        }else{
+                            let notifications = ""
+                            notifications += `<button class="notification" onclick="readAll();"><h1>${allmessages.newm} new messages!</h1><p>click to mark all as read</p></button>`
+                            let unreads = document.getElementById("unreads");
+                            unreads.innerHTML = notifications;
+                            let title = document.getElementById("title");
+                            title.innerHTML = `(${allmessages.newm}) UniformChat | Messages`;
+                        }
+                    }
+                })
+                .catch((err) => console.log(err));
+            fetch("update") 
+                .then((response) => response.json())
+                .then((msgs) => {
+                    let messagesHtml = ``;
+                    let platform = msgs.platform
+                    
+                    if (platform ==="groupme"){
+                        document.body.style.background = "#1dbcf6"; 
+                        messagesHtml += `<div class="chatgm">`
+                        messagesHtml += `<div class = "chat-head"> <img id = "chatlogo" src="{% static 'media/gm_w.png' %}" type="image/png"><h1 id = "gcName"> ${msgs.name} </h1> </div> <div id = "send"> <input id="message-to-send" onkeypress="onTestChange();"></input> <input type="submit" id="button" value="send" onclick="analyzeText_gm();"> </div> <div id = "chat_messages">` 
+                    }else if (platform==="discord"){
+                        document.body.style.background = "#5865F2";
+                        messagesHtml += `<div class="chatdisc">`
+                        messagesHtml += `<div class = "chat-head"> <img id = "chatlogo" src="{% static 'media/disc_w.png' %}" type="image/png"><h1 id = "gcName"> ${msgs.name} </h1> </div> <div id = "send"> <input id="message-to-send" onkeypress="onTestChange();"></input> <input type="submit" id="button" value="send" onclick="analyzeText_disc();"> </div> <div id = "chat_messages">`
+                    }else if(platform==="slack"){
+                        document.body.style.background = "#ECB22E"; 
+                        messagesHtml += `<div class="chatslack">`
+                        messagesHtml += `<div class = "chat-head"> <img id = "chatlogo" src="{% static 'media/slack_w.png' %}" type="image/png"><h1 id = "gcName"> ${msgs.name} </h1> </div> <div id = "send"> <input id="message-to-send" onkeypress="onTestChange();"></input> <input type="submit" id="button" value="send" onclick="analyzeText_slack();"> </div> <div id = "chat_messages">`
+                    }
+                    
+                    for (var msg of msgs.messages) {
+                        messagesHtml += `<div class = "message"> <div class = "n-msg"> <h3> ${msg.name} </h3> <p> ${msg.created_at} </p> </div> <h2> ${msg.text} </h2> </div>`
+                    }
+                    
+                    messagesHtml += `</div></div></div>`
+                    let messages = document.getElementById("chatbox");
+                    messages.innerHTML = messagesHtml;
+                })
+                .catch((err) => console.log(err));
+        }
+        const updateChat = () => {               //GET MESSAGE FUNCTION TO UDATE MESSAGES
+            fetch("updateM")
+                .then((response) => response.json())
+                .then((allmessages) => {
+                    if (allmessages.response === 'none'){
+
+                    }else{
+                        let messagesHtml = "";
+                        for (var conversation of allmessages.response) {
+                            if (conversation.read === 'false'){
+                                if (conversation.platform == 'GroupMe'){
+                                    messagesHtml += `<button onclick="setID(\''+${conversation.group_id} + '\')"> <h3> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3><h4 style = "text-align:left; color:#1dbcf6;"> ⬤ ${ conversation.platform}</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                                }else if (conversation.platform == 'Discord'){
+                                    messagesHtml += `<button onclick="setID(\''+${conversation.group_id} + '\')"> <h3> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3><h4 style = "text-align:left; color:#5865F2;"> ⬤ ${ conversation.platform}</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                                }else{
+                                    messagesHtml += `<button onclick="setID(\''+${conversation.group_id} + '\')"> <h3> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3><h4 style = "text-align:left; color:#ECB22E;"> ⬤ ${ conversation.platform}</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                                }
+                            }else{
+                                messagesHtml += `<button onclick="setID(\''+${conversation.group_id} + '\')"> <h3> ${ conversation.name } <span style="float:right"> ${ conversation.time } </span> </h3> <h4 style="text-align:left">${ conversation.platform}</h4> <p style="text-align:left"> ${ conversation.snippet } </p> </button>`
+                            }
+                        }
+
+                        let msgGroup = document.getElementById("msgGroup");
+                        msgGroup.innerHTML = messagesHtml;
+
+                        if (allmessages.newm === '0'){
+                            let unreads = document.getElementById("unreads");
+                            unreads.innerHTML = "";
+                        }else{
+                            let notifications = ""
+                            notifications += `<button class="notification" onclick="readAll();"><h1>${allmessages.newm} new messages!</h1><p>click to mark all as read</p></button>`
+                            let unreads = document.getElementById("unreads");
+                            unreads.innerHTML = notifications;
+                            let title = document.getElementById("title");
+                            title.innerHTML = `(${allmessages.newm}) UniformChat | Messages`;
+                        }
+                        
+                    }
+                })
+                .catch((err) => console.log(err));
+        }
+        setInterval(updateChat, 1000);  
+        
+        function setID(id){
+            for(i=0; i<3; i++){
+                var text = String(id)
+                if (text.length == 8){
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ 'updategmID/' }}",
+                        data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: text },  
+                    });
+                }else if(text.length == 5){
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ 'updateslackID/' }}",
+                        data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: text },  
+                    });
+                }else {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ 'updatediscID/' }}",
+                        data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: text },  
+                    });
+                }
+                fetch("update") 
+                    .then((response) => response.json())
+                    .then((msgs) => {
+                        let messagesHtml = ``;
+                        let platform = msgs.platform
+                        
+                        if (platform ==="groupme"){
+                            document.body.style.background = "#1dbcf6"; 
+                            messagesHtml += `<div class="chatgm">`
+                            messagesHtml += `<div class = "chat-head"> <img id = "chatlogo" src="{% static 'media/gm_w.png' %}" type="image/png"><h1 id = "gcName"> ${msgs.name} </h1> </div> <div id = "send"> <input id="message-to-send" onkeypress="onTestChange();"></input> <input type="submit" id="button" value="send" onclick="analyzeText_gm();"> </div> <div id = "chat_messages">` 
+                        }else if (platform==="discord"){
+                            document.body.style.background = "#5865F2";
+                            messagesHtml += `<div class="chatdisc">`
+                            messagesHtml += `<div class = "chat-head"> <img id = "chatlogo" src="{% static 'media/disc_w.png' %}" type="image/png"><h1 id = "gcName"> ${msgs.name} </h1> </div> <div id = "send"> <input id="message-to-send" onkeypress="onTestChange();"></input> <input type="submit" id="button" value="send" onclick="analyzeText_disc();"> </div> <div id = "chat_messages">`
+                        }else if(platform==="slack"){
+                            document.body.style.background = "#ECB22E"; 
+                            messagesHtml += `<div class="chatslack">`
+                            messagesHtml += `<div class = "chat-head"> <img id = "chatlogo" src="{% static 'media/slack_w.png' %}" type="image/png"><h1 id = "gcName"> ${msgs.name} </h1> </div> <div id = "send"> <input id="message-to-send" onkeypress="onTestChange();"></input> <input type="submit" id="button" value="send" onclick="analyzeText_slack();"> </div> <div id = "chat_messages">`
+                        }
+                        
+                        for (var msg of msgs.messages) {
+                            messagesHtml += `<div class = "message"> <div class = "n-msg"> <h3> ${msg.name} </h3> <p> ${msg.created_at} </p> </div> <h2> ${msg.text} </h2> </div>`
+                        }
+                        
+                        messagesHtml += `</div></div></div>`
+                        let messages = document.getElementById("chatbox");
+                        messages.innerHTML = messagesHtml;
+                    })
+                    .catch((err) => console.log(err));
+                }
+                var dt = new Date();
+                document.getElementById('date-time').innerHTML=dt;
+        }
+        function readAll(){
+            $.ajax({
+                type: "POST",
+                url: "{{ 'readall/' }}",
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}'},  
+            });
+        }
+
+        function addDisc(){
+            window.location.href="http://localhost:8000/chat/messages/adddiscchat/"
+        }
+        function addSlack(){
+            window.location.href="http://localhost:8000/chat/messages/addslackchat/"
+        }
+
+    </script>
+    <section class="header">
+        <nav id="mynavbar" class="navbar">
+          <div class = logo>
+            <b><a href="../" id="navname"><b>UniformChat</b> </a>
+          </div>
+            <div class="menu">
+                <a href="../tutorials" id="tutorials">Tutorials</a>
+                <a href="auth" id="authhub">Connect Apps</a>
+                <a href="../logout" id="logout">Sign out</a>
+            </div>
+        </nav>
+    </section>
+    <div id="Magnifytheme" class="sidenav">
+        <a id="darkmode" onClick="darkTheme()">Dark</a>
+        <a id="lightmode" onClick="lightTheme()">Light</a>
+        <a id="colormode" onClick="colorTheme()">Color</a>
+    </div>
+
+    <div class = "format">
+        <container class="convcont">
+            <div id = "unreads"></div>
+            <div class="toolbox">
+                <button class="newconvo" onclick="addDisc();">Add Discord</button>
+                <button class="newconvo" onclick="addSlack();">Add Slack</button>
+            </div>
+            <div class="btn-group">
+                <div id = "msgGroup">
+                </div>
+            </div>
+        </container>
+
+        <script>
+            const getMessages = ()=>{               //GET MESSAGE FUNCTION TO UDATE MESSAGE
+                fetch("update") 
+                .then((response) => response.json())
+                .then((msgs) => {
+                    let messagesHtml = ``;
+
+                    for (var msg of msgs.messages) {
+                        messagesHtml += `<div class = "message"> <div class = "n-msg"> <h3> ${msg.name} </h3> <p> ${msg.created_at} </p> </div> <h2> ${msg.text} </h2> </div>`
+                    }
+                    
+                    let messages = document.getElementById("chat_messages");
+                    messages.innerHTML = messagesHtml;
+                })
+                .catch((err) => console.log(err));
+            }
+            setInterval(getMessages, 1000);          //EVERY .1 second
+            
+            function onTestChange() {
+                var key = window.event.keyCode;         //if user presses enter
+    
+                if (key === 13) {
+                    document.getElementById('button').click();
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            function analyzeText_gm(){                     //gets message from text box and sends 
+                var text = document.getElementById('message-to-send').value;    
+    
+                $.ajax({
+                    type: "POST",
+                    url: "{{ 'send/' }}",
+                    data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: text },  
+                    success: function callback(response){
+                               alert(response);
+                            }
+                });
+                document.getElementById('message-to-send').value = "";
+            }
+            function analyzeText_disc(){                     //gets message from text box and sends 
+                var text = document.getElementById('message-to-send').value;    
+                document.getElementById('message-to-send').value = "Sending Messages is against Discord TOS! Navigate to the discord app to send a message in this channel!";
+            }
+            function analyzeText_slack(){                     //gets message from text box and sends 
+                var text = document.getElementById('message-to-send').value;    
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ 'sendslack/' }}",
+                    data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: text },  
+                    success: function callback(response){
+                               alert(response);
+                            }
+                });
+
+                document.getElementById('message-to-send').value = "";
+            }
+            $(document).ready(function(){
+                if (window.location.hash == "") {
+                $('html, body').animate({
+                    scrollTop: $("#send").offset().top
+                }, 300);
+                }
+            });
+        </script>
+
+        
+        <containter class = "chat" id = "chat">
+            <div id="chatbox">
+                    <div class="chatnone">
+                        <div class = "chat-bar">
+                            <div class = "chat-head">
+                                <h1 id = "gcName">
+                                    You do not have a chat selected!
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </container>
+    </div>
+{% endblock %}
