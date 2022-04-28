@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+<<<<<<< HEAD
     <link rel="stylesheet" id = "pagestyle" type="text/css" href="{% static 'main.css' %}">
     <script>
         localStorage.setItem('style', "{% static 'main.css' %}");
@@ -19,11 +20,16 @@
 
 <body>
     {% block content %}
+=======
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
     {% if title %}
         <title>UniformChat | {{ title }}</title>
     {% else %}
         <title>UniformChat</title>
     {% endif %}
+<<<<<<< HEAD
     {% endblock %}
     <div id="Magnify" class="sidenav">
         <a id="incmag" onClick="zoomIn()">A+</a>
@@ -41,6 +47,13 @@
             document.body.style.fontSize = fontSize + "px";
         }
     </script>
+=======
+</head>
+
+<body>
+    {% block content %}
+    {% endblock %}
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 </body>
 
 </html>

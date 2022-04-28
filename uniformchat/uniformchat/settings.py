@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-tj@4hil4#k-a(mph_c+v$y#k#c!z%b*@@lxdhqp8+45)z#hmn+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = []
+=======
+ALLOWED_HOSTS = ['uniform-chat.herokuapp.com', 'http://localhost:8000']
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 
 
 # Application definition
@@ -38,12 +42,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
+=======
+    'debug_toolbar',
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
     'oauth2_provider',
     'corsheaders',
     'chat.apps.ChatConfig'
 ]
 
 MIDDLEWARE = [
+<<<<<<< HEAD
+=======
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

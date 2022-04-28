@@ -4,6 +4,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
+<<<<<<< HEAD
     path('', views.home,name="home"),
     path('tutorials/', views.tutorials,name="tutorials"),
     path('messages/send/', views.send),
@@ -35,3 +36,18 @@ urlpatterns = [
     path('signup/', views.signup_view,name="signup"),
 
 ]
+=======
+    
+    path('', views.index, name = 'index'),
+    path('messages/send/', views.send),
+    path('messages/update/', views.update, name= 'update'),
+    path('messages/', views.messages, name="messages"),
+    path('messages/updateM/', views.updateM, name="updateM"),
+    path('messages/updategmID/', views.updategmID, name="updategmID"),
+    path('gmlogin/', views.groupMe_login, name='GroupMe_Login'),
+    path('groupmeauth/',views.groupMe_auth, name='groupmeauth'),
+    path('login/', views.login_view,name="login"),
+    path('signup/', views.signup_view,name="signup"),
+
+]
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6

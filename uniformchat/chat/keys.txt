@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 slack:
 discord:
 groupme:72612d409665013a0e920242ac110002
 discord:VzC1w8Hf2gRwyGxosm69XTDFyMIWm9
 groupme:72612d409665013a0e920242ac110002
 groupme:72612d409665013a0e920242ac110002
+=======
+
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6

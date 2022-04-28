@@ -15,7 +15,11 @@ class groupmeapi:
         return ''.join(random.choice(letters) for i in range(stringLength))
 
     #api to get chat data
+<<<<<<< HEAD
     def listChats_GroupMe(self,token):
+=======
+    def listChats(self,token):
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
         params = (
             ('per_page', 100),
         )
@@ -23,7 +27,11 @@ class groupmeapi:
 
         return response.content
     
+<<<<<<< HEAD
     def listGroups_GroupMe(self,token):
+=======
+    def listGroups(self,token):
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
         params = (
             ('per_page', 100),
         )
@@ -31,7 +39,11 @@ class groupmeapi:
 
         return response.content
 
+<<<<<<< HEAD
     def sendMessage_GroupMe(self, message, group, token):
+=======
+    def sendMessageG(self, message, group, token):
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
         headers = {
             'Host': 'api.groupme.com',
             'X-Access-Token': token,
@@ -43,7 +55,11 @@ class groupmeapi:
 
         return response.content
     
+<<<<<<< HEAD
     def getMessages_GroupMe(self, group, token):
+=======
+    def getMessagesG(self, group, token):
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
         params = (
             ('limit', 100),
         )
@@ -51,7 +67,11 @@ class groupmeapi:
 
         return(response.content)
 
+<<<<<<< HEAD
     def getLastMessage_GroupMe(self, group, token):
+=======
+    def getLastMessageG(self, group, token):
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
         params = (
             ('limit', 100),
         )
@@ -59,7 +79,11 @@ class groupmeapi:
 
         return(response.content)
 
+<<<<<<< HEAD
     def getGroupName_GroupMe(self, group, token):
+=======
+    def getGroupName(self, group, token):
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
         response = requests.get(gbaseurl+'/'+str(group)+'?token=' + str(token), verify=False)
 
         return(response.content)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from urllib import response
 import requests
 import json
@@ -50,6 +51,14 @@ class discordapi:
         }
         r = requests.post('https://discord.com/api/v8/oauth2/token', data=data, headers=headers)
         return r.json()
+=======
+import requests
+import json
+
+#https://discord.com/api/v9/channels/767886713586319423/messages?limit=50
+#'MTMxMjU2NzE4Mzc3MDkxMDcy.YMJoqw.bCrcoGt3rSGy84-IVgJE3TG14d8'
+class discordapi:
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 
     #retrieve messages
     def retrieve_messages(self, channelid, authorization):
@@ -71,6 +80,7 @@ class discordapi:
         return r.content
 
     #get channel name
+<<<<<<< HEAD
     def get_channel(self, channelid):
         headers = {
             'authorization' : bot_key
@@ -79,3 +89,11 @@ class discordapi:
         return r.content
 
     
+=======
+    def get_channel(self, channelid, authorization):
+        headers = {
+            'authorization' : authorization
+        }
+        r = requests.get(f'https://discord.com/api/v9/channels/{channelid}', headers=headers)
+        return r.content
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6

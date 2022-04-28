@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 html, body {
@@ -6,6 +7,12 @@ html, body {
     background-color: #111111;;
     font-size: 20px;
     font-family: monospace;
+=======
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 }
 
 .format{
@@ -13,12 +20,32 @@ html, body {
     height: 95%;
 }
 
+<<<<<<< HEAD
 .convcont {
     background-color: #111111;
+=======
+
+
+.convcont {
+    background-color: #000000;
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
     width: 30%;
     display: block;
     overflow: auto;
 }
+<<<<<<< HEAD
+=======
+.chat {
+    background-color: #1dbcf6;
+    width: 70%;
+    display: block;
+    overflow: auto;
+}
+#gcName {
+    color: aliceblue;
+    font-family: monospace;
+}
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 
 
 .toolbox {
@@ -27,14 +54,22 @@ html, body {
     cursor: pointer;
     width: 100%;
     height: 30px;
+<<<<<<< HEAD
     margin-left: 0;
     margin-right: 0;
     display: flex;
     padding-bottom: 15px;
+=======
+    display: block;
+    line-height: 0.5;
+    margin-left: 0;
+    margin-right: 0;
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 }
 
 .newconvo {
     background-color: #000000;
+<<<<<<< HEAD
     color: #704AE3;
     padding:10px 10px 30px 10px;
     cursor: pointer;
@@ -50,11 +85,25 @@ html, body {
 .newconvo:hover {
     color: white;
     background-color: rgb(71, 71, 71);
+=======
+    color: grey;
+    padding: 1px 20px;
+    cursor: pointer;
+    width: auto;
+    height: 100%;
+    display: block;
+    line-height: 0.5;
+    float: right;
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 }
 
 .settings {
     background-color: #000000;
+<<<<<<< HEAD
     color: #704AE3;
+=======
+    color: grey;
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
     padding: 1px 20px;
     cursor: pointer;
     width: auto;
@@ -64,6 +113,7 @@ html, body {
     height: 100%;
 }
 
+<<<<<<< HEAD
 .menu {
     display: flex;
     gap: 1em;
@@ -77,6 +127,13 @@ html, body {
     align-items: center;
     justify-content: space-between;
 }
+=======
+.navbar {
+    overflow: hidden;
+    background-color: #44006b;
+}
+
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 .navbar a {
     float: left;
     display: block;
@@ -87,11 +144,16 @@ html, body {
     font-size: 17px;
 }
 
+<<<<<<< HEAD
 .menu a:hover {
+=======
+.navbar a:hover {
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
     background: white;
     color: black;
 }
 
+<<<<<<< HEAD
 .headimage {
     background-image: url(media/landingheader.png);
     height: 60%;
@@ -120,6 +182,12 @@ html, body {
     background-color: #111111;
     /* Black background */
     border: 1px solid #704AE3;
+=======
+.btn-group button {
+    background-color: #000000;
+    /* Black background */
+    border: 1px solid rgb(100, 100, 100);
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
     /* Grey border */
     color: grey;
     /* White text */
@@ -140,6 +208,7 @@ html, body {
 
 /* Add a background color on hover */
 .btn-group button:hover {
+<<<<<<< HEAD
     color: white;
     background-color: rgb(71, 71, 71);
 }
@@ -215,16 +284,23 @@ html, body {
 #gcName {
     color: aliceblue;
     font-family: monospace;
+=======
+    background-color: rgb(100, 100, 100);
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 }
 
 .message {
     background-color: #ffffff94;
+<<<<<<< HEAD
     border-radius: 10px;
+=======
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
     font-family: monospace;
     margin-top: 10px;
     margin-bottom: 10px;
     justify-content: space-between;
     flex-wrap: wrap;
+<<<<<<< HEAD
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.349);
 }
 
@@ -259,6 +335,10 @@ html, body {
     margin-bottom: 5px;
 }
 
+=======
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 .n-msg{
     display:flex;
     justify-content: space-between;
@@ -306,7 +386,10 @@ html, body {
 }
 
 #send {
+<<<<<<< HEAD
     margin-top: 50px;
+=======
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
     display: flex;
 }
 
@@ -315,6 +398,7 @@ html, body {
     background-color: #fdfeffa6;
 }
 
+<<<<<<< HEAD
 .chat::-webkit-scrollbar {
     z-index:1000;
     width: 2px;
@@ -356,6 +440,10 @@ html, body {
     width: 5px;
     background: rgba(0, 0, 0, 0);
     outline: #704AE3;
+=======
+::-webkit-scrollbar {
+    width: 10px;
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
 }
 
 ::-webkit-scrollbar-track {
@@ -363,6 +451,7 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
     background:#704AE3;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -539,3 +628,11 @@ html, body {
     border-style: solid;
     border-color:#f2f2f2 transparent #f2f2f2 #f2f2f2;
 }
+=======
+    background: rgba(255, 255, 255, 0.349);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(87, 118, 255, 0.596);
+}
+>>>>>>> 0b32c798ed5f04ef51961df9bf9d5e72287516b6
