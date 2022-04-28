@@ -41,8 +41,8 @@ cur = conn.cursor()
 redirectURL_GroupMe = "https://oauth.groupme.com/oauth/authorize?client_id=iUNSRzS3IDBTAIEy5BSg9in8goZVVXto5i762YjI9dtXSiDb"
 redirectURL_Discord = "https://discord.com/api/oauth2/authorize?client_id=963435798294847488&permissions=67584&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fchat%2Fdiscordauth%2F&response_type=code&scope=bot%20messages.read%20identify%20guilds"
 redirectURL_Slack = "https://slack.com/oauth/v2/authorize?client_id=3374157642694.3380563549894&scope=incoming-webhook,channels:history,chat:write&user_scope=channels:read,chat:write,groups:history,groups:read,groups:write,identify,channels:history"
-redirectBack = "http://localhost:8000/messages"
-redirectBack_discd = "http://localhost:8000/messages/adddiscchat_d/"
+redirectBack = "https://uniform-chat.herokuapp.com/messages"
+redirectBack_discd = "https://uniform-chat.herokuapp.com/messages/adddiscchat_d/"
 groupid_gme = 1
 groupid_disc = 1
 groupid_slack = '1'
@@ -58,7 +58,7 @@ def home(request):
     else:
         return render(request, 'home2.html')
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def tutorials(request):
     return render(request, 'home.html')
 
@@ -100,7 +100,7 @@ def authhub(request):
 
     return render(request, 'authhub.html', {'groupme':groupme_conn,'discord':discord_conn,'slack':slack_conn, 'username':appusername})
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def messages(request):
     global appusername
     appusername = request.user.username
@@ -151,7 +151,7 @@ def messages(request):
 
     return render(request, 'messages.html')
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def updateM(request):
     global appusername
     appusername = request.user.username
@@ -357,7 +357,7 @@ def updateM(request):
             return JsonResponse(allmessages)
 
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def updateMload(request):
     conn = psycopg2.connect(
         host = hostname,
@@ -408,11 +408,11 @@ def read_all(request):
     return render(request, 'messages.html')
         
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def groupMe_login(request: HttpRequest):
     return redirect(redirectURL_GroupMe)
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def groupMe_auth(request: HttpRequest):
     conn = psycopg2.connect(
         host = hostname,
@@ -425,9 +425,6 @@ def groupMe_auth(request: HttpRequest):
     #To do store the token in the data base via the store group me function
     storeGroupMeKey(appusername, request.GET.get('access_token'))
 
-    text_file = open("chat/keys.txt", "at")
-    text_file.write("groupme:" + request.GET.get('access_token') + "\n")
-    text_file.close()
 
     #TO DO : update/replace GROUPME TOKEN TO DATABASE THAT MATCHES appusername variable instead of just adding
     
@@ -447,11 +444,11 @@ def groupMe_auth(request: HttpRequest):
     return redirect(redirectBack)
 
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def discord_login(request: HttpRequest):
     return redirect(redirectURL_Discord)
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def discord_auth(request: HttpRequest):
     conn = psycopg2.connect(
         host = hostname,
@@ -471,12 +468,12 @@ def discord_auth(request: HttpRequest):
 
     return redirect(redirectBack)
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def slack_login(request:HttpRequest):
 
     return redirect(redirectURL_Slack)
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def slack_auth(request:HttpRequest):
     conn = psycopg2.connect(
         host = hostname,
@@ -505,7 +502,7 @@ def index(request):
     return render(request, 'chat.html', {'msgs':msgs['messages'],'gc':gc})
 
 #constantly requests
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def update(request):
     if (groupid_gme != 1):
         gc = json.loads(g.getGroupName_GroupMe(groupid_gme , groupme_at))['response']
@@ -582,7 +579,7 @@ def sendslack(request):
     return None
 
 #update gm id
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def updategmID(request):
     global groupid_gme
     groupid_gme = request.POST['text']
@@ -612,7 +609,7 @@ def updategmID(request):
 
 
 #update disc id
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def updatediscID(request):
 
     global groupid_gme
@@ -654,7 +651,7 @@ def updatediscID(request):
 
     return render(request, 'messages.html')
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def updateslackID(request):
 
     global groupid_gme
@@ -759,12 +756,12 @@ def login_view(request):
     #     form = AuthenticationForm()
     
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def adddiscchat(request):
     
     return render(request, 'adddisc.html')
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def disc_add(request):
     if request.method == 'POST':
 
@@ -814,12 +811,12 @@ def disc_add(request):
             conn.close()
             return redirect(redirectBack)
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def addslackchat(request):
     
     return render(request, 'addslack.html')
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def slack_add(request):
     if request.method == 'POST':
 
@@ -859,7 +856,7 @@ def slack_add(request):
             cur.close()
             conn.close()
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def deletedchann(request):
     conn = psycopg2.connect(
         host = hostname,
@@ -877,7 +874,7 @@ def deletedchann(request):
 
     return render(request)
 
-@login_required(login_url='http://localhost:8000/login/')
+@login_required(login_url='https://uniform-chat.herokuapp.com/login/')
 def deleteschann(request):
     conn = psycopg2.connect(
         host = hostname,
@@ -898,4 +895,4 @@ def deleteschann(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('http://localhost:8000')
+    return redirect('https://uniform-chat.herokuapp.com')

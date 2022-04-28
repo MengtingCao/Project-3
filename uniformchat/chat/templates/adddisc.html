@@ -31,7 +31,7 @@
                 url: "{{ 'discadd/' }}",
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', gcname: gcname, gcid:gcid }
             });
-            window.location.href="http://localhost:8000/messages/"
+            window.location.href="https://uniform-chat.herokuapp.com/messages/"
         }
         function deleteChannel(){                     //gets message from text box and sends 
             $.ajax({
@@ -39,7 +39,7 @@
                 url: "{{ 'discdelete/' }}",
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}'}
             });
-            window.location.href="http://localhost:8000/messages/"
+            window.location.href="https://uniform-chat.herokuapp.com/messages/"
         }
     </script>
     <img id = "logo" src="{% static 'media/discord.png' %}">
@@ -51,7 +51,7 @@
         <input id = "button" type="button" onclick="analyzeChannel();" value="Add Channel"></input>
         <h1> </h1>
         <p>Don't know how to get channel id?</p>
-        <a class = "button2" href="http://localhost:8000/tutorials/" value="click here">Click Here!</a>
+        <a class = "button2" href="https://uniform-chat.herokuapp.com/tutorials/" value="click here">Click Here!</a>
         <h1> </h1>
         <p> </p>
         <input id = "restbutton" type="button" onclick="deleteChannel();" value="RESET CHANNELS"></input>
